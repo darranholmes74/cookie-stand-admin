@@ -1,3 +1,11 @@
+# Project Name: Cookie Stand Admin
+
+## Author: Darran Holmes
+
+### Instructions
+After you run the server, fill in the inputs on the form and click the create button.
+The JSON of the new store will display on the bottom under the footer.
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
