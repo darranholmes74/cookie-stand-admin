@@ -7,6 +7,9 @@ export default function Header(){
                 <h1 className="text-4xl">Cookie Stand Admin</h1>
             </div>
             <div>
+                <button className="bg-green-600 text-black rounded py-1 px-3">Sign Out</button>
+            </div>
+            <div>
                 <button className="bg-white text-black rounded py-1 px-3 ">Overview</button>
             </div>
         </header>

@@ -1,5 +1,4 @@
 
-import { hours } from '../components/data'
 
 export default function ReportTable({ reports }) {
   if (!Array.isArray(reports) || reports.length === 0) {

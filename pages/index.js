@@ -7,10 +7,56 @@ import CreateForm from "@/components/createform";
 import { useState } from "react";
 import Footer from "@/components/footer";
 import ReportTable from "@/components/reportTable";
+import { useAuth} from "@/contexts/auth";
+import LoginForm from "@/components/loginForm";
 
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
+  const { user, login } = useAuth();
+  const [reports, setReports] = useState([]);
+
+  const handleLogin = async (username, password) => {
+    try {
+      await login(username, password);
+    } catch (error) {
+      console.log(error);
+      console.log(username)
+      console.log(password)
+    }
+  };
+
+  const addReport = (newReport) => {
+    setReports([...reports, newReport]);
+  };
+
+  return (
+    <div className="p-4">
+      <Head>
+        <title>Cookie Stand Admin</title>
+      </Head>
+
+      {user ?
+        <div>
+          <Header />
+          <main className="container mx-auto my-4 max-w-4xl">
+            <CreateForm incrementTableCount={addReport} reports={reports} setReports={setReports} />
+            <ReportTable reports={reports} />
+          </main>
+          <Footer reports={reports} />
+        </div>
+        :
+        <LoginForm onLogin={handleLogin} />
+      }
+
+    </div>
+  );
+}
+
+
+function CookieStandAdmin() {
+
+
     const [tableCount, setTableCount] = useState(0);
 
   const incrementTableCount = () => {
@@ -18,6 +64,7 @@ export default function Home() {
   };
 
   const [reports, setReports] = React.useState([]);
+
 
   return (
     <div>
@@ -27,6 +74,7 @@ export default function Home() {
           <link rel="icon" href="/favicon.ico" />
         </Head>
         <Header />
+
         <main>
             <div className="p-8">
                 <CreateForm incrementTableCount={incrementTableCount} reports={reports} setReports={setReports}/>
