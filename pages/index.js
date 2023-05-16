@@ -8,51 +8,40 @@ import { useState } from "react";
 import Footer from "@/components/footer";
 import ReportTable from "@/components/reportTable";
 import { useAuth} from "@/contexts/auth";
+
 import LoginForm from "@/components/loginForm";
+import useResource from "@/hooks/useResource";
 
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
-  const { user, login } = useAuth();
-  const [reports, setReports] = useState([]);
+    const { user, login } = useAuth();
 
-  const handleLogin = async (username, password) => {
-    try {
-      await login(username, password);
-    } catch (error) {
-      console.log(error);
-      console.log(username)
-      console.log(password)
-    }
-  };
+    const handleLogin = async (username, password) => {
+        try {
+            await login(username, password);
+        } catch (error) {
+            console.log(error);
+            console.log(username)
+            console.log(password)
+        }
+    };
 
-  const addReport = (newReport) => {
-    setReports([...reports, newReport]);
-  };
+    return (
+        <div className="p-4">
+            <Head>
+                <title>Cookie Stand Admin</title>
+            </Head>
 
-  return (
-    <div className="p-4">
-      <Head>
-        <title>Cookie Stand Admin</title>
-      </Head>
+            {user ?
+                <CookieStandAdmin />
+                :
+                <LoginForm onLogin={handleLogin} />
+            }
 
-      {user ?
-        <div>
-          <Header />
-          <main className="container mx-auto my-4 max-w-4xl">
-            <CreateForm incrementTableCount={addReport} reports={reports} setReports={setReports} />
-            <ReportTable reports={reports} />
-          </main>
-          <Footer reports={reports} />
         </div>
-        :
-        <LoginForm onLogin={handleLogin} />
-      }
-
-    </div>
-  );
+    );
 }
-
 
 function CookieStandAdmin() {
 
@@ -63,7 +52,9 @@ function CookieStandAdmin() {
     setTableCount(tableCount + 1);
   };
 
-  const [reports, setReports] = React.useState([]);
+  const { resources, deleteResource } = useResource()
+    console.log(resources)
+
 
 
   return (
@@ -77,12 +68,12 @@ function CookieStandAdmin() {
 
         <main>
             <div className="p-8">
-                <CreateForm incrementTableCount={incrementTableCount} reports={reports} setReports={setReports}/>
+                <CreateForm />
 
 
             </div>
             <div className="flex justify-center pt-8 pb-12">
-                 {reports.length > 0 ? <ReportTable reports={reports}/> : <h2>No Cookie Stands Available</h2>}
+                 {resources ? <ReportTable reports={resources || []} deleteReports={deleteResource}/> : <h2>No Cookie Stands Available</h2>}
             </div>
         </main>
         <Footer tableCount={tableCount} />
