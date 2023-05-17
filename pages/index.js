@@ -2,7 +2,7 @@ import Image from 'next/image'
 import Head from 'next/head'
 import React from 'react';
 import { Inter } from 'next/font/google'
-import Header from '../components/Header';
+import Header from '@/components/Header';
 import CreateForm from "@/components/createform";
 import { useState } from "react";
 import Footer from "@/components/footer";
