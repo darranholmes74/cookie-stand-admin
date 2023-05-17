@@ -2,6 +2,12 @@
 
 ## Author: Darran Holmes
 
+### Deployments
+front-end: cookie-stand-admin-darran-holmes.vercel.app
+back-end: cookie-stand-api-darran-holmes.vercel.app
+
+
+
 ### Instructions
 After you run the server, fill in the inputs on the form and click the create button.
 The JSON of the new store will display on the bottom under the footer.
